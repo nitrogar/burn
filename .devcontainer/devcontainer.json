@@ -1,4 +1,26 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "features": {"ghcr.io/devcontainers/features/rust:1": {}}
+  "name": "Rust Burn Env",
+  // Use the official, lightweight Rust image
+  "image": "mcr.microsoft.com/devcontainers/rust:1-1-bullseye",
+  
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "lldb.executable": "/usr/bin/lldb",
+        "files.watcherExclude": {
+          "**/target/**": true
+        },
+        "rust-analyzer.checkOnSave.command": "clippy"
+      },
+      "extensions": [
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "serayuzgur.crates",
+        "vadimcn.vscode-lldb"
+      ]
+    }
+  },
+  
+  // Optional: Install generic OS packages if Burn needs them (like ALSA/OpenSSL)
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y libssl-dev pkg-config libasound2-dev"
 }
