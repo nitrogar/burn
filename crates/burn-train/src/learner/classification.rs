@@ -135,3 +135,18 @@ impl<B: Backend> Adaptor<ConfusionStatsInput<B>> for MultiLabelClassificationOut
         ConfusionStatsInput::new(self.output.clone(), self.targets.clone().bool())
     }
 }
+
+impl<B: Backend> Adaptor<CerInput<B>> for  MultiLabelClassificationOutput<B> {
+    fn adapt(&self) -> CerInput<B> {
+        let output_int = self.output.int();
+        CerInput::new(output_int, self.targets.clone())
+    }
+}
+
+impl<B: Backend> Adaptor<WerInput<B>> for  MultiLabelClassificationOutput<B> {
+    fn adapt(&self) -> WerInput<B> {
+        let output_int = self.output.int();
+        WerInput::new(output_int, self.targets.clone())
+    }
+}
+
